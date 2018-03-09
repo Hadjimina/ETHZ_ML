@@ -9,7 +9,7 @@ from sklearn.preprocessing import FunctionTransformer
 import csv
 X_dummy = []
 y = []
-X =[]
+X = []
 X_test = []
 X_train = []
 y_test = []
@@ -30,6 +30,7 @@ for v in X_dummy:
     for f in transforms:
         temp.extend(map(f,v))
     temp.append(1)
+    print(temp[0],temp[5],temp[10],temp[15],temp[20])
     X.append(temp)
 
 
@@ -52,10 +53,6 @@ for v in X_dummy:
 #test on entire data
 regr = linear_model.LinearRegression()
 regr.fit(X, y)
-
-print("Averages")
-print(str(np.mean(erro_vec))+"\n")
-
 
 
 f = open('output.csv', 'w')
