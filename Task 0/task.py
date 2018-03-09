@@ -39,6 +39,7 @@ test_Y_predict = regr.predict(test_X)
 
 print("Prediction (index 10):",
       test_Y_predict[10], "\nGround truth", test_Y[10])
+
 # 5. print RMSE and other stuff
 RMSE = mean_squared_error(test_Y, test_Y_predict)**0.5
 # # The coefficients
