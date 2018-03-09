@@ -48,28 +48,3 @@ for v in error_matrix:
     print(np.mean(v))
     f.write(str(np.mean(v))+"\n")
 f.close()
-# 2. use linear_model.LinearRegression() from sklearn to get regression  (should data be normalized?)
-# regr = linear_model.LinearRegression()
-# # 3. train regression on training X & Y
-# regr.fit(train_X, train_Y)
-# # 4. use regression.predict(X test) to get prediction using test set
-# test_Y_predict = regr.predict(test_X)
-#
-# print("Prediction (index 10):",
-#       test_Y_predict[10], "\nGround truth", test_Y[10])
-# # 5. print RMSE and other stuff
-# RMSE = mean_squared_error(test_Y, test_Y_predict)**0.5
-# # # The coefficients
-# print("\nRMSE: ", RMSE)
-# print('\nCoefficients: \n', regr.coef_)
-# # # Explained variance score: 1 is perfect prediction
-# print('\nVariance score: %.2f' % r2_score(test_Y, test_Y_predict))
-#
-# # 6. Write solution to file
-# f = open('output2.csv', 'w')
-# i = 999
-# f.write("Id,y\n")
-# for x in test_Y:
-#     i += 1
-#     f.write(str(i) + "," + str(x) + "\n")
-# f.close()
