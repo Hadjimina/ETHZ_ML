@@ -62,7 +62,8 @@ for d in degreeVec:
 f = open('output.csv', 'w')
 q = 2000
 for v in Y_test_predict:
-    st = str(q)+", "+str(v)[:-2]+"\n"
+    f.wirte("Id,y\n")
+    st = str(q)+","+str(v)[:-2]+"\n"
     #print(st)
     q+=1
     f.write(st)
