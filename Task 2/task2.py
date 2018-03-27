@@ -66,7 +66,8 @@ f = open('output.csv', 'w')
 f.write("Id,y\n")
 q = 2000
 for v in Y_test_predict:
-    st = str(q)+", "+str(v)[:-2]+"\n"
+    f.wirte("Id,y\n")
+    st = str(q)+","+str(v)[:-2]+"\n"
     #print(st)
     q+=1
     f.write(st)
