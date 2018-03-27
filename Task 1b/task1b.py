@@ -17,7 +17,7 @@ y_test = []
 y_train= []
 coef = []
 #best lambda is 0.1 for public score, for local score l = 0.074 is better but we get overfitting (i.e. worse public score)
-lamda = [0.1,1,10,100,1000]
+lamda = [0.68,1,10,100,1000]
 error_matrix = []
 
 transforms = [ lambda x: x, lambda x: x**2,  np.exp,np.cos] #??
