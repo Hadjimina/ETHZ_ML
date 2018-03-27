@@ -12,7 +12,7 @@ X = []
 Y = []
 accVec = []
 avgVec = []
-degreeVec = [2,4,6,8]
+degreeVec = [2]
 # Training datasets
 with open('train_vale.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -29,15 +29,18 @@ with open('train_vale.csv') as csvfile:
 #         X_test.append(list(map(float, row[1:])))
 
 for d in degreeVec:
-    print("for degree="+str(d))
+    print("FOR DEGREE="+str(d))
     kf = KFold(n_splits=10)
+    w = 0
     for train, test in kf.split(X):
+        print("iteration "+str(w)+"...")
+        w+=1
         #generate training and test sets using kfold gugus
         X_array = np.array(X)
         Y_array = np.array(Y)
         X_train, X_test, Y_train, Y_test = X_array[train], X_array[test], Y_array[train], Y_array[test]
         # clf = OneVsRestClassifier(LinearSVC()) ---------- results in acc of 0.6
-        clf = svm.SVC(kernel="poly", degree=d) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
+        clf = svm.SVC(kernel="poly", degree=d,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
         clf.fit(X_train, Y_train)
         Y_test_predict = clf.predict(X_test)
         acc = accuracy_score(Y_test, Y_test_predict)
