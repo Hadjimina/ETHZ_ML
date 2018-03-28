@@ -14,6 +14,7 @@ X_test = []
 accVec = []
 avgVec = []
 numFolds = 1
+degreeVec = [3,4,5,6,7,8,9,10]
 # Training datasets
 with open('train_vale.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -29,7 +30,7 @@ with open('test_vale.csv') as csvfile:
     for row in readCSV:
         X_test.append(list(map(float, row[1:])))
 
-# for d in degreeVec:
+ for d in degreeVec:
 #     print("FOR DEGREE="+str(d))
 #     kf = KFold(n_splits=numFolds)
 #     w = 1
@@ -40,12 +41,22 @@ with open('test_vale.csv') as csvfile:
         #X_array = np.array(X)
         #Y_array = np.array(Y)
         #X_train, X_test, Y_train, Y_test = X_array[train], X_array[test], Y_array[train], Y_array[test]
-X_train = X
-Y_train = Y
-# clf = OneVsRestClassifier(LinearSVC()) ---------- results in acc of 0.6
-clf = svm.SVC(kernel="poly", degree=2,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
-clf.fit(X_train, Y_train)
-Y_test_predict = clf.predict(X_test)
+    X_train = X
+    Y_train = Y
+    # clf = OneVsRestClassifier(LinearSVC()) ---------- results in acc of 0.6
+    clf = svm.SVC(kernel="poly", degree=d,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
+    clf.fit(X_train, Y_train)
+    Y_test_predict = clf.predict(X_test)
+    f = open('output_degree_'str(d)+'.csv', 'w')
+    f.write("Id,y\n")
+    q = 2000
+    for v in Y_test_predict:
+        f.wirte("Id,y\n")
+        st = str(q)+","+str(v)[:-2]+"\n"
+        #print(st)
+        q+=1
+        f.write(st)
+    f.close()
         # acc = accuracy_score(Y_test, Y_test_predict)
         # accVec.append(acc)
         # if(acc <= 0.65):
