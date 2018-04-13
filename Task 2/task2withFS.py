@@ -32,7 +32,6 @@ print("files loaded")
 sel = VarianceThreshold(threshold=(.8 * (1 - .8)))
 Xselected = sel.fit_transform(X)
 Xselected_test = sel.fit_transform(X_test)
-print(Xnew_test)
 
 # do SVM with degree d
 clf = svm.SVC(kernel="poly", degree=3,cache_size=200) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3

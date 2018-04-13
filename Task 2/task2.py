@@ -45,7 +45,7 @@ for d in degreeVec:
     X_train = X
     Y_train = Y
     # clf = OneVsRestClassifier(LinearSVC()) ---------- results in acc of 0.6
-    clf = svm.SVC(kernel="poly", degree=3,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
+    clf = svm.SVC(kernel="poly", degree=,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
     clf.fit(X_train, Y_train)
     Y_test_predict = clf.predict(X_test)
     print(Y_test_predict)
