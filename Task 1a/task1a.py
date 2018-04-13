@@ -39,7 +39,7 @@ for l in lamda:
         Y_test_predict = clf.predict(X_test)
         # Calculate error of our prediction
         RMSE = mean_squared_error(Y_test, Y_test_predict)**0.5
-        erro_vec.append(RMSE)
+        erro_vec.extend(RMSE)
         print("lamda "+str(l)+"Error "+str(RMSE))
     error_matrix.append(erro_vec)
 

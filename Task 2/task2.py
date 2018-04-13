@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score
 
 # 1. get training and test set of X & Y
 import csv
+print("Hello World")
 X = []
 Y = []
 X_test = []
@@ -22,15 +23,15 @@ with open('train_vale.csv') as csvfile:
     for row in readCSV:
         X.append(list(map(float, row[2:])))
         Y.append(float(row[1]))
-
+csvfile.close()
 
 with open('test_vale.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     next(readCSV, None)  # skip the header
     for row in readCSV:
         X_test.append(list(map(float, row[1:])))
-
- for d in degreeVec:
+csvfile.close()
+for d in degreeVec:
 #     print("FOR DEGREE="+str(d))
 #     kf = KFold(n_splits=numFolds)
 #     w = 1
@@ -44,10 +45,11 @@ with open('test_vale.csv') as csvfile:
     X_train = X
     Y_train = Y
     # clf = OneVsRestClassifier(LinearSVC()) ---------- results in acc of 0.6
-    clf = svm.SVC(kernel="poly", degree=d,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
+    clf = svm.SVC(kernel="poly", degree=3,cache_size=2000) #linear,poly,rbf,sigmoid, precomputed  kernel='poly',degree=3
     clf.fit(X_train, Y_train)
     Y_test_predict = clf.predict(X_test)
-    f = open('output_degree_'str(d)+'.csv', 'w')
+    print(Y_test_predict)
+    f = open('output_degree_'+ str(d)+'.csv', 'w')
     f.write("Id,y\n")
     q = 2000
     for v in Y_test_predict:
