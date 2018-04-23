@@ -31,10 +31,11 @@ model = Sequential()
 #               metrics=['accuracy'])
 
 
-model.add(Dense(1024,activation='relu',input_shape=(100,)))
+model.add(Dense(512,activation='relu',input_shape=(100,)))
 model.add(Dense(512,activation='relu'))
+model.add(Dropout(0.2))
 model.add(Dense(5,activation='softmax'))
-model.compile(loss='categorical_crossentropy',
+model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
