@@ -16,7 +16,7 @@ X_train = train[:,1:]
 Y_train = train[:,0]
 Y_train = tf.keras.utils.to_categorical(Y_train)
 
-
+print(test.shape)
 
 model = Sequential()
 
@@ -33,16 +33,16 @@ model = Sequential()
 
 model.add(Dense(512,activation='relu',input_shape=(100,)))
 model.add(Dense(512,activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.15))
 model.add(Dense(5,activation='softmax'))
-model.compile(loss='binary_crossentropy',
+model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
 
 
 model.fit(X_train, Y_train,
-          batch_size=32, nb_epoch=75, verbose=1)
+          batch_size=64, nb_epoch=150, verbose=1)
 
 Y_predict = model.predict(test)
 Y_predict = np.argmax(np.asarray(Y_predict), 1)
