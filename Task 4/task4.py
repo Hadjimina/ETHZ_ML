@@ -28,7 +28,7 @@ Y_train = np.concatenate((Y_train_labeled, Y_train_unlabeled))
 X_train, Y_train = shuffle(X_train, Y_train, random_state=0)
 
 #perform semi-supervised learning
-label_prop_model = LabelSpreading()
+label_prop_model = LabelSpreading( kernel='knn', alpha=0.8, max_iter=4000)
 #label_prop_model = LabelPropagation()
 label_prop_model.fit(X_train, Y_train)
 Y_predict = label_prop_model.predict(test)
@@ -38,7 +38,7 @@ f = open('output.csv', 'w')
 f.write("Id,y\n")
 q = 30000
 for v in Y_predict:
-    st = str(q)+","+str(v)+"\n"
+    st = str(q)+","+str(math.floor(v))+"\n"
     q+=1
     f.write(st)
 f.close()
