@@ -19,27 +19,30 @@ test = np.asarray(pd.read_hdf("test.h5", "test"))
 #seperate x vector and y value
 X_train_labeled = train_labeled[:,1:]
 Y_train_labeled = train_labeled[:,0]
-Y_train = tf.keras.utils.to_categorical(Y_train)
+Y_train_labeled = tf.keras.utils.to_categorical(Y_train_labeled)
 print(test.shape)
 
 #Setup Neural Network sequential model
 model = Sequential()
 
 #Add different layers
-model.add(Dense(512,activation='relu',input_shape=(100,)))
+model.add(Dense(512,activation='relu',input_shape=(128,)))
+model.add(Dropout(0.10))
 model.add(Dense(512,activation='relu'))
-model.add(Dropout(0.15))
-model.add(Dense(5,activation='softmax'))
-model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+model.add(Dropout(0.10))
+model.add(Dense(10,activation='softmax'))
+sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
 
 #Fit the labeled training data & predict the unlabeled data & take class with highest prob.
 model.fit(X_train_labeled, Y_train_labeled, batch_size=64, nb_epoch=150, verbose=1)
 Y_predict_unlabeled = model.predict(train_unlabeled)
-Y_predict_unlabeled = np.argmax(np.asarray(Y_predict_unlabeled), 1)
+Y_predict_unlabeled = np.argmax(np.asarray(Y_predict_unlabeled), axis=1)
+Y_predict_unlabeled = tf.keras.utils.to_categorical(Y_predict_unlabeled, num_classes=10)
 
 #Concatenate the labeled training set and the now predicted unlabeled training sets
-X_train = np.concatenate(X_train_labeled, train_unlabeled)
-Y_train = np.concatenate(Y_train_labeled, Y_predict_unlabeled)
+X_train = np.concatenate((X_train_labeled, train_unlabeled))
+Y_train = np.concatenate((Y_train_labeled, Y_predict_unlabeled))
 
 #Fit the new X and Y vectors in the Neural Network
 model.fit(X_train, Y_train, batch_size=64, nb_epoch=150, verbose=1)
